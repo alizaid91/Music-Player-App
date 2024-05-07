@@ -14,13 +14,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<style>
+    .song-playing {
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust background color as needed */
+    padding: 5px;
+    border-radius: 5px;
+}
+</style>
+
 <body class="font-['Roboto']  bg-black  w-screen h-screen md:overflow-x-hidden">
     <div class="playlistDetailsw-full h-full">
         <div class="container flex items-center flex-col">
         <div class="mt-6 posterContainer"></div>
         <div class="text-center discription"></div>
+        <audio id="audio-player"></audio>
     </div>
-    <div class="songsCotainer flex flex-col gap-2 mt-7 ml-5 pb-5 max-w-[600px] md:mx-auto"></div>
+    <ul class="list-none songsCotainer flex flex-col gap-4 mt-10 ml-5 mr-5 max-w-[600px] pb-[100px] md:mx-auto" id="song-list"></ul>
+    </div>
+    <div class="minimized-song-controls w-full h-[75px] bg-[#202020] fixed hidden bottom-0 left-0 p-2 rounded-t-xl">
+
     </div>
     <script src="../src/assets/assets.js" type="module"></script>
     <script src="app.js" type="module"></script>
