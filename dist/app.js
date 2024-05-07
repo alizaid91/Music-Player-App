@@ -1,19 +1,4 @@
-// import songs from "./assets/assets.js";
-
-// // Create an array to store imported images
-// const importedImages = {};
-
-// // Import images dynamically
-// for (let i = 1; i <= 1) {
-//     const imageName = `song_${i}_poster`;
-//     const imagePath = `./${imageName}.jpg`; // Adjust the file extension if needed
-//     importedImages[imageName] = require(imagePath);
-// }
-
-// // Now you can access the imported images using their names
-// console.log(importedImages);
-
-// assets.js
+//accessing assets
 const songs = [
   {
       name :'Bollywood Romance Essentials',
@@ -91,21 +76,23 @@ const songs = [
   }
 ];
 
-// export default songs;
-
-console.log(songs[0].image);
-
+//accessing elements from html
 const posterContainer = document.querySelector(".posterContainer");
 const discription = document.querySelector(".discription");
 const songsContainer = document.querySelector(".songsCotainer");
 const minimizedControlls = document.querySelector(".minimized-song-controls");
+const audioPlayer = document.querySelector("#audio-player");
+let songList = document.querySelector("#song-list");
 
+
+//inserting playlist thumbnail and discription
 posterContainer.innerHTML = `<img class="w-[250px] h-auto rounded-xl" src="${songs[0].image}" alt="image1">`;
 discription.innerHTML = `<h1 class="text-white  text-xl font-extrabold pt-4">${songs[0].name}</h1>
 <p class="text-slate-400 pt-3">Playlist • YouTube Music • 2024</p>
 <p class="text-slate-400">11 songs • 1 hours, 1 minute</p>
 <p class="text-slate-400 pt-3 px-5">Biggest hits to crowd favorites, enjoy the best of Bollywood Romance.</p> `;
 
+//inserting songs
 let songNum = 1;
 for (let i = 0; i < 10; i++) {
   songsContainer.innerHTML += `<li class=" scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] h-auto rounded-sm" src="${songs[songNum].image}">
@@ -114,11 +101,8 @@ for (let i = 0; i < 10; i++) {
   songNum++;
 }
 
-let songList = document.querySelector("#song-list");
-const audioPlayer = document.querySelector("#audio-player");
-
+//play and pause feature
 let isPlaying = false
-
 function playSong(songSrc) {
   audioPlayer.src = songSrc;
   audioPlayer.play();
@@ -126,7 +110,6 @@ function playSong(songSrc) {
 }
 
   window.togglePlayPause = function() {
-    console.log("working");
     const pauseIcon = document.querySelector(".pauseIcon")
     if(isPlaying){
       audioPlayer.pause();
@@ -143,26 +126,22 @@ function playSong(songSrc) {
     }
 }
 
+//play Songs
 songList.addEventListener("click", function (e) {
   const listItem = e.target.closest("li");
   if (listItem) {
     const songId = listItem.dataset.songId;
-    console.log(songId);
     const index = parseInt(songId);
-    console.log(index);
     const song = `${songs[index].songFile}`;
-    console.log(song);
     if (song) {
       if (minimizedControlls.children.length > 0) {
         minimizedControlls.style.display= "block"
-        // Replace minimized controls with current song details
         minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card" data-song-id="${songId}">
             <img class="w-[60px] h-auto rounded-sm ml-3" src="${songs[index].image}">
             <p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
             <i class="pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl text-white" onclick="togglePlayPause()"></i>
         </div>`;
       } else {
-        // Append new content to minimizedControlls
         minimizedControlls.style.display= "block"
         minimizedControlls.innerHTML += `<div class="scroll-smooth h-full relative flex flex-row song-card" data-song-id="${songId}">
             <img class="w-[60px] h-auto rounded-sm ml-3" src="${songs[index].image}">
