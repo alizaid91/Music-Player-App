@@ -33,18 +33,18 @@ const songs = [
     songFile: "assets/Apna_Bana_Le_Bhediya.mp3",
   },
   {
-    name: 'Ranjha (From "Shershaah")',
-    artist: "Jasleen Royal,B Praak,Romy & Anvita Dutt",
+    name: 'Lut Gaye',
+    artist: "Jubin Nautiyal",
     duration: "3:20",
-    image: "assets/song_5_poster.jpg",
-    songFile: "assets/Ranjha.mp3",
+    image: "assets/song_12_poster.jpg",
+    songFile: "assets/Lut_Gaye.mp3",
   },
   {
-    name: 'Ghodey Pe Sawaar (From "Qala")',
-    artist: "Amit Trivedi,Amitabh Bhattacharya & Sireesha Bhagavatula",
+    name: 'Khairiyat',
+    artist: "Arijit Singh",
     duration: "4:30",
-    image: "assets/song_6_poster.jpg",
-    songFile: "assets/Ghodey_Pe_Sawaar.mp3",
+    image: "assets/song_13_poster.jpg",
+    songFile: "assets/KHAIRIYAT.mp3",
   },
   {
     name: 'Kesariya (From "Brahmastra")',
@@ -165,6 +165,7 @@ songList.addEventListener("click", function (e) {
       //maximized controls screen
       maxiSongControl.innerHTML = `
       <div class="md:w-screen md:h-screen md:flex md:justify-center md:flex-col md:items-center">
+      
       <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center data-song-id="${songId}""> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
 
       <div class="current-song-description  w-[80%] md:w-[300px] mt-3 pl-2 flex flex-col justify-centre mx-auto">
