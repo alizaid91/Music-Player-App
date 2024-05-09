@@ -103,13 +103,12 @@ discription.innerHTML = `<h1 class="text-white  text-xl font-extrabold pt-4">${s
 //inserting songs
 let songNum = 1;
 for (let i = 0; i < 11; i++) {
-  songsContainer.innerHTML += `<li class=" cursor-pointer scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] mx-h-[60px] h-auto rounded-sm" src="${songs[songNum].image}">
-  <div class="flex flex-col my-auto"><p class="text-white pl-5 pr-3 font-semibold">${songs[songNum].name}</p>
+  songsContainer.innerHTML += `<li class=" cursor-pointer scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] h-[60px] rounded-sm" src="${songs[songNum].image}">
+  <div class="flex flex-col my-auto"><p class="text-white pl-5 font-semibold text-sm">${songs[songNum].name}</p>
   <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[songNum].artist}</p></div></li>
 `;
   songNum++;
 }
-
 
 
 //play and pause feature
@@ -141,8 +140,8 @@ window.togglePlayPause = function () {
 
 };
 
+//displaying or hiding maximized controls screen
 window.hideMaxControl = function () {
-    // const maxiSongControl = document.querySelector(".maxzimised-song-controls")
     maxiSongControl.style.display = "none";
     document.body.style.position = "static"
 }
@@ -152,7 +151,7 @@ window.showMaxControlls = function () {
   maxiSongControl.style.display = "block";
 }
 
-//play Songs
+//play Songs from playlist
 songList.addEventListener("click", function (e) {
   let listItem = e.target.closest("li");
   if (listItem) {
@@ -160,57 +159,49 @@ songList.addEventListener("click", function (e) {
     let index = parseInt(songId);
     const song = `${songs[index].songFile}`;
     if (song) {
-      if (minimizedControlls.children.length > 0) {
-        maxiSongControl.style.display = "block"
+      maxiSongControl.style.display = "block"
+      document.body.style.position = "fixed"
 
-        minimizedControlls.style.display = "block";
-        document.body.style.position = "fixed"
-        maxiSongControl.innerHTML = `
-        <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center data-song-id="${songId}""> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
-        <div class="current-song-description w-[80%] flex justify-centre items-center mx-auto  mt-3">
-        <div class="flex flex-col my-auto ml-2"><p class="text-xl text-white font-semibold">${songs[index].name}</p>
-        <p class="h-[20px] w-[200px] text-sm text-gray-400 truncate ...">${songs[index].artist}</p></div>
-        </div>
-        <div class="controls w-full text-center mt-3 flex items-center justify-center gap-12">
-        <i class="fa-solid fa-backward-step  text-white text-[2.5rem]"></i>
-        <i class="pauseIcon2 fa-solid fa-pause text-white text-7xl" onclick="togglePlayPause()"></i>
-        <i class="fa-solid fa-forward-step  text-white text-[2.5rem]" onclick="nextSong()"></i>
-        </div>
-        <i class="text-gray-400 text-xl fa-solid fa-chevron-down absolute top-3 left-3" onclick="hideMaxControl()"></i>
-        `
+      //maximized controls screen
+      maxiSongControl.innerHTML = `
+      <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center data-song-id="${songId}""> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
+      <div class="current-song-description w-[80%] flex justify-centre items-center mx-auto  mt-3">
+      <div class="flex flex-col my-auto"><p class="text-xl text-white font-semibold">${songs[index].name}</p>
+      <p class="h-[20px] w-[200px] text-sm text-gray-400 truncate ...">${songs[index].artist}</p></div>
+      </div>
+      <div class="w-full flex justify-center mt-5 mb-5"><input type="range" value="0" class="appearance-none w-[75%] h-[0.1rem] bg-gray-500 rounded-md" id="progress">
+      <div><span><span>
+      <span><span></div></div>
+      <div class="controls w-full text-center mt-3 flex items-center justify-center gap-7">
+      <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem]"></i></div>
+      <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer "><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
+      <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem]" onclick="nextSong()"></i></div>
+      </div>
+      <i class="text-gray-400 text-xl fa-solid fa-chevron-down absolute top-3 left-3" onclick="hideMaxControl()"></i>
+      `
 
-        minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card">
-            <img class="w-[60px] mx-h-[60px] h-auto rounded-sm ml-3" src="${songs[index].image}" onclick="showMaxControlls()">
-            <div class="flex flex-col my-auto" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
-            <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
-            <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white " onclick="togglePlayPause()"></i>
-        </div>`;
-      } else {
-        maxiSongControl.style.display = "block";
-        document.body.style.position = "fixed"
-        minimizedControlls.style.display = "block";
-        maxiSongControl.innerHTML = `
-        <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center data-song-id="${songId}""> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
-        <div class="current-song-description w-[80%] flex justify-centre items-center mx-auto  mt-3">
-        <div class="flex flex-col my-auto ml-2"><p class="text-xl text-white font-semibold">${songs[index].name}</p>
-        <p class="h-[20px] w-[200px] text-sm text-gray-400 truncate ...">${songs[index].artist}</p></div>
-        </div>
-        <div class="controls w-full text-center mt-3 flex items-center justify-center gap-12">
-        <i class="fa-solid fa-backward-step  text-white text-[2.5rem]"></i>
-        <i class="pauseIcon2 fa-solid fa-pause text-white text-7xl" onclick="togglePlayPause()"></i>
-        <i class="fa-solid fa-forward-step  text-white text-[2.5rem]" onclick="nextSong()"></i>
-        </div>
-        <i class="text-gray-400 text-xl fa-solid fa-chevron-down absolute top-3 left-3" onclick="hideMaxControl()"></i>
-        `
+      //minimized controll card
+      minimizedControlls.style.display = "block";
+      minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
+          <img class="w-[60px] h-[60px] rounded-sm ml-3" src="${songs[index].image}" onclick="showMaxControlls()">
+          <div class="flex flex-col my-auto" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
+          <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
+          <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white " onclick="togglePlayPause()"></i>
+      </div>`;
 
-        minimizedControlls.innerHTML += `<div class="scroll-smooth h-full relative flex flex-row song-card" data-song-id="${songId}">
-            <img class="w-[60px] mx-h-[60px] h-auto rounded-sm ml-3" src="${songs[index].image}" onclick="showMaxControlls()">
-            <div class="flex flex-col my-auto" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
-            <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
-            <i class="pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white"  onclick="togglePlayPause()"></i>
-        </div>`;
-      }
+      //progress bar logic
+      const progress = document.querySelector("#progress")
       playSong(song);
+      if(isPlaying){
+        setInterval(()=>{
+         const songLength = audioPlayer.duration
+         const currentTime =audioPlayer.currentTime
+          const Currentprogress = (currentTime / songLength) * 100; // Calculate the progress as a percentage
+          progress.value = Currentprogress;
+        },500)
+      }
+
+      //adding the backgroud to currently playing song in playlist
       let listItems = songList.querySelectorAll("li");
       listItems.forEach((item) => item.classList.remove("song-playing"));
       listItem.classList.add("song-playing");
