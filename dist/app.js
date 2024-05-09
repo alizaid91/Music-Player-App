@@ -142,13 +142,19 @@ window.togglePlayPause = function () {
 
 //displaying or hiding maximized controls screen
 window.hideMaxControl = function () {
-    maxiSongControl.style.display = "none";
+    maxiSongControl.classList.add("translate-y-[100%]")
+    setTimeout(() => {
+    maxiSongControl.classList.add("hidden")
+    }, 500);
     document.body.style.position = "static"
 }
 
 window.showMaxControlls = function () {
-  document.body.style.position = "fixed"
-  maxiSongControl.style.display = "block";
+  maxiSongControl.classList.remove("hidden")
+  setTimeout(() => {
+    maxiSongControl.classList.remove("translate-y-[100%]")
+    }, 100);
+    document.body.style.position = "fixed"
 }
 
 //play Songs from playlist
@@ -159,7 +165,10 @@ songList.addEventListener("click", function (e) {
     let index = parseInt(songId);
     const song = `${songs[index].songFile}`;
     if (song) {
-      maxiSongControl.style.display = "block"
+      maxiSongControl.classList.remove("hidden")
+      setTimeout(() => {
+        maxiSongControl.classList.remove("translate-y-[100%]")
+        }, 100);
       document.body.style.position = "fixed"
 
       //maximized controls screen
@@ -186,7 +195,8 @@ songList.addEventListener("click", function (e) {
       `
 
       //minimized controll card
-      minimizedControlls.style.display = "block";
+      minimizedControlls.classList.remove("hidden")
+
       minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
           <img class="w-[60px] h-[60px] rounded-sm ml-3" src="${songs[index].image}" onclick="showMaxControlls()">
           <div class="flex flex-col my-auto" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
