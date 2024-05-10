@@ -174,6 +174,9 @@ songList.addEventListener("click", function (e) {
     //maximized controls screen
     maxiSongControl.innerHTML = `
       <div class="md:w-screen md:h-screen md:flex md:justify-center md:flex-col md:items-center">
+      <div class=" w-full text-center absolute top-5 animate-bounce">
+      <i class="text-gray-400 text-2xl md:text-5xl mx-auto fa-solid fa-chevron-down cursor-pointer" onclick="hideMaxControl()"></i>
+      </div>
       
       <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center" data-song-id="${songId}"> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
 
@@ -185,27 +188,27 @@ songList.addEventListener("click", function (e) {
       <div class="w-full flex justify-center mt-5 mb-5"><input type="range" value="0" class="appearance-none w-[75%] h-[0.1rem] bg-gray-500 rounded-md md:w-[300px] md:mx-auto" id="progress"></div>
 
       <div class="controls w-full text-center mt-3 flex items-center justify-center gap-7">
-      <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem]" onclick="previousSong()"></i></div>
+      <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem] cursor-pointer" onclick="previousSong()"></i></div>
       <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer "><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
-      <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem]" onclick="nextSong()"></i></div>
+      <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem] cursor-pointer" onclick="nextSong()"></i></div>
       </div>
 
       </div>
-      <i class="text-gray-400 text-xl fa-solid fa-chevron-down absolute top-3 left-3" onclick="hideMaxControl()"></i>
       `;
 
     //minimized controll card
     minimizedControlls.classList.remove("hidden");
 
     minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
-          <img class="w-[60px] h-[60px] rounded-sm ml-3" src="${songs[index].image}" onclick="showMaxControlls()">
-          <div class="flex flex-col my-auto" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
+          <img class="w-[60px] h-[60px] rounded-sm ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
+          <div class="flex flex-col my-auto cursor-pointer" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
           <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
-          <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white " onclick="togglePlayPause()"></i>
+          <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white cursor-pointer" onclick="togglePlayPause()"></i>
       </div>`;
 
     //progress bar logic
     const progress = document.querySelector("#progress");
+    isPlaying = true
     if (isPlaying) {
       setInterval(() => {
         const songLength = audioPlayer.duration;
