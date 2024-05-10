@@ -33,14 +33,14 @@ const songs = [
     songFile: "assets/Apna_Bana_Le_Bhediya.mp3",
   },
   {
-    name: 'Lut Gaye',
+    name: "Lut Gaye",
     artist: "Jubin Nautiyal",
     duration: "3:20",
     image: "assets/song_12_poster.jpg",
     songFile: "assets/Lut_Gaye.mp3",
   },
   {
-    name: 'Khairiyat',
+    name: "Khairiyat",
     artist: "Arijit Singh",
     duration: "4:30",
     image: "assets/song_13_poster.jpg",
@@ -90,8 +90,10 @@ const songsContainer = document.querySelector(".songsCotainer");
 const minimizedControlls = document.querySelector(".minimized-song-controls");
 const audioPlayer = document.querySelector("#audio-player");
 let songList = document.querySelector("#song-list");
-const maxiSongControl = document.querySelector(".maxzimised-song-controls")
-const currentSongCuntrollDisc = document.querySelector(".current-song-description")
+const maxiSongControl = document.querySelector(".maxzimised-song-controls");
+const currentSongCuntrollDisc = document.querySelector(
+  ".current-song-description"
+);
 
 //inserting playlist thumbnail and discription
 posterContainer.innerHTML = `<img class="w-[250px] h-auto rounded-xl" src="${songs[0].image}" alt="image1">`;
@@ -109,7 +111,6 @@ for (let i = 0; i < 11; i++) {
 `;
   songNum++;
 }
-
 
 //play and pause feature
 let isPlaying = false;
@@ -137,45 +138,44 @@ window.togglePlayPause = function () {
     pauseIcon2.classList.add("fa-pause");
     isPlaying = true;
   }
-
 };
 
 //displaying or hiding maximized controls screen
 window.hideMaxControl = function () {
-    maxiSongControl.classList.add("translate-y-[100%]")
-    setTimeout(() => {
-    maxiSongControl.classList.add("hidden")
-    }, 500);
-    document.body.style.position = "static"
-}
+  maxiSongControl.classList.add("translate-y-[100%]");
+  setTimeout(() => {
+    maxiSongControl.classList.add("hidden");
+  }, 500);
+  document.body.style.overflow = "scroll";
+};
 
 window.showMaxControlls = function () {
-  maxiSongControl.classList.remove("hidden")
+  maxiSongControl.classList.remove("hidden");
   setTimeout(() => {
-    maxiSongControl.classList.remove("translate-y-[100%]")
-    }, 100);
-    document.body.style.position = "fixed"
-}
+    maxiSongControl.classList.remove("translate-y-[100%]");
+  }, 100);
+  document.body.style.overflow = "hidden";
+};
 
 //play Songs from playlist
 songList.addEventListener("click", function (e) {
-  let listItem = e.target.closest("li");
-  if (listItem) {
-    const songId = listItem.dataset.songId;
-    let index = parseInt(songId);
-    const song = `${songs[index].songFile}`;
-    if (song) {
-      maxiSongControl.classList.remove("hidden")
-      setTimeout(() => {
-        maxiSongControl.classList.remove("translate-y-[100%]")
-        }, 100);
-      document.body.style.position = "fixed"
+  const listItem = e.target.closest("li");
+  const songId = listItem.dataset.songId;
+  var index = parseInt(songId);
+  const song = `${songs[index].songFile}`;
 
-      //maximized controls screen
-      maxiSongControl.innerHTML = `
+  maxiSongControl.classList.remove("hidden");
+  setTimeout(() => {
+    maxiSongControl.classList.remove("translate-y-[100%]");
+  }, 100);
+  document.body.style.overflow = "hidden";
+
+  function playSongfromList() {
+    //maximized controls screen
+    maxiSongControl.innerHTML = `
       <div class="md:w-screen md:h-screen md:flex md:justify-center md:flex-col md:items-center">
       
-      <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center data-song-id="${songId}""> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
+      <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center" data-song-id="${songId}"> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
 
       <div class="current-song-description  w-[80%] md:w-[300px] mt-3 pl-2 flex flex-col justify-centre mx-auto">
       <p class="text-xl text-white font-semibold">${songs[index].name}</p>
@@ -185,41 +185,64 @@ songList.addEventListener("click", function (e) {
       <div class="w-full flex justify-center mt-5 mb-5"><input type="range" value="0" class="appearance-none w-[75%] h-[0.1rem] bg-gray-500 rounded-md md:w-[300px] md:mx-auto" id="progress"></div>
 
       <div class="controls w-full text-center mt-3 flex items-center justify-center gap-7">
-      <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem]"></i></div>
+      <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem]" onclick="previousSong()"></i></div>
       <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer "><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
       <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem]" onclick="nextSong()"></i></div>
       </div>
 
       </div>
       <i class="text-gray-400 text-xl fa-solid fa-chevron-down absolute top-3 left-3" onclick="hideMaxControl()"></i>
-      `
+      `;
 
-      //minimized controll card
-      minimizedControlls.classList.remove("hidden")
+    //minimized controll card
+    minimizedControlls.classList.remove("hidden");
 
-      minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
+    minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
           <img class="w-[60px] h-[60px] rounded-sm ml-3" src="${songs[index].image}" onclick="showMaxControlls()">
           <div class="flex flex-col my-auto" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
           <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
           <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white " onclick="togglePlayPause()"></i>
       </div>`;
 
-      //progress bar logic
-      const progress = document.querySelector("#progress")
-      playSong(song);
-      if(isPlaying){
-        setInterval(()=>{
-         const songLength = audioPlayer.duration
-         const currentTime =audioPlayer.currentTime
-          const Currentprogress = (currentTime / songLength) * 100; // Calculate the progress as a percentage
-          progress.value = Currentprogress;
-        },500)
-      }
-
-      //adding the backgroud to currently playing song in playlist
-      let listItems = songList.querySelectorAll("li");
-      listItems.forEach((item) => item.classList.remove("song-playing"));
-      listItem.classList.add("song-playing");
+    //progress bar logic
+    const progress = document.querySelector("#progress");
+    if (isPlaying) {
+      setInterval(() => {
+        const songLength = audioPlayer.duration;
+        const currentTime = audioPlayer.currentTime;
+        const Currentprogress = (currentTime / songLength) * 100; // Calculate the progress as a percentage
+        progress.value = Currentprogress;
+      }, 500);
     }
+
+    //adding the backgroud to currently playing song in playlist
+    let listItems = songList.querySelectorAll("#song-list li");
+    listItems.forEach((item) => item.classList.remove("song-playing"));
+    let element = document.querySelectorAll("#song-list li")[index - 1];
+    console.log(element);
+    element.classList.add("song-playing");
   }
+
+  //playing first song from playlist
+  playSongfromList();
+  playSong(song);
+
+  //playing next song from controls
+  window.nextSong = function () {
+    index += 1;
+    console.log(`index is ${index}`);
+    const song = `${songs[index].songFile}`;
+
+    playSongfromList();
+    playSong(song);
+  };
+
+  //playing previous song from controls
+  window.previousSong = function () {
+    index -= 1;
+    console.log(`index is ${index}`);
+    const song = `${songs[index].songFile}`;
+    playSongfromList();
+    playSong(song);
+  };
 });
