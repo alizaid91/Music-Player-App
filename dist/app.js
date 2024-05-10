@@ -65,7 +65,7 @@ const songs = [
     artist: "Javed Ali",
     duration: "3:55",
     image: "assets/song_9_poster.jpg",
-    songFile: "assets/Srivalli.mp3",
+    songFile: "assets/Pushpa_ Srivalli.mp3",
   },
   {
     name: "Meri Jaan",
