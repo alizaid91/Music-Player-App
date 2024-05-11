@@ -17,6 +17,12 @@ const songs = [
     songFile: "assets/songs_mp3_files/Maan_Meri_Jaan.mp3",
   },
   {
+    name: "Pehle Bhi Main",
+    artist: "Vishal Mishra",
+    image: "assets/songs_posters/song_14_poster.jpg",
+    songFile: "assets/songs_mp3_files/ANIMAL_PEHLE_BHI_MAIN.mp3",
+  },
+  {
     name: "Manike",
     artist: "Yohani,Jubin Nautiyal & Surya Ragunaathan",
     image: "assets/songs_posters/song_3_poster.jpg",
@@ -88,12 +94,14 @@ const currentSongCuntrollDisc = document.querySelector(
 posterContainer.innerHTML = `<img class="w-[250px] h-auto rounded-xl" src="${songs[0].image}" alt="image1">`;
 discription.innerHTML = `<h1 class="text-white  text-xl font-extrabold pt-4">${songs[0].name}</h1>
 <p class="text-slate-400 pt-3">Playlist • YouTube Music • 2024</p>
-<p class="text-slate-400">11 songs • 1 hours, 1 minute</p>
+<p class="text-slate-400">12 songs • 1 hours, 1 minute</p>
 <p class="text-slate-400 pt-3 px-5">Biggest hits to crowd favorites, enjoy the best of Bollywood Romance.</p> `;
 
 //inserting songs
+let playlistLength = songs.length-1
+console.log(playlistLength)
 let songNum = 1;
-for (let i = 0; i < 11; i++) {
+for (let i = 0; i < playlistLength; i++) {
   songsContainer.innerHTML += `<li class=" cursor-pointer scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] h-[60px] rounded-sm" src="${songs[songNum].image}">
   <div class="flex flex-col my-auto"><p class="text-white pl-5 font-semibold text-sm">${songs[songNum].name}</p>
   <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[songNum].artist}</p></div></li>
@@ -241,7 +249,7 @@ songList.addEventListener("click", function (e) {
 
   //playing next song from controls
   window.nextSong = function () {
-    if (index < 11) {
+    if (index < playlistLength) {
       index += 1;
       console.log(`index is ${index}`);
       const song = `${songs[index].songFile}`;
