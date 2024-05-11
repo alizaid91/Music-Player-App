@@ -2,84 +2,73 @@
 const songs = [
   {
     name: "Bollywood Romance Essentials",
-    image: "assets/song_1_poster.jpg",
+    image: "assets/songs_posters/song_1_poster.jpg",
   },
   {
     name: 'Raataan Lambiyan (From "Shershaah")',
     artist: "Jubin Nautiyal, Tanishk Bagchi and Asees Kaur",
-    duration: "3:30",
-    image: "assets/song_1_poster.jpg",
-    songFile: "assets/Raataan_Lambiyan.mp3",
+    image: "assets/songs_posters/song_1_poster.jpg",
+    songFile: "assets/songs_mp3_files/Raataan_Lambiyan.mp3",
   },
   {
     name: "Maan Meri Jaan",
     artist: "King",
-    duration: "4:00",
-    image: "assets/song_2_poster.jpg",
-    songFile: "assets/Maan_Meri_Jaan.mp3",
+    image: "assets/songs_posters/song_2_poster.jpg",
+    songFile: "assets/songs_mp3_files/Maan_Meri_Jaan.mp3",
   },
   {
     name: "Manike",
     artist: "Yohani,Jubin Nautiyal & Surya Ragunaathan",
-    duration: "3:45",
-    image: "assets/song_3_poster.jpg",
-    songFile: "assets/Manike.mp3",
+    image: "assets/songs_posters/song_3_poster.jpg",
+    songFile: "assets/songs_mp3_files/Manike.mp3",
   },
   {
     name: 'Apna Bana Le (From "Bhediya")',
     artist: "Arijit Singh & Sachin-Jigar",
-    duration: "4:10",
-    image: "assets/song_11_poster.jpg",
-    songFile: "assets/Apna_Bana_Le_Bhediya.mp3",
+    image: "assets/songs_posters/song_11_poster.jpg",
+    songFile: "assets/songs_mp3_files/Apna_Bana_Le_Bhediya.mp3",
   },
   {
     name: "Lut Gaye",
     artist: "Jubin Nautiyal",
-    duration: "3:20",
-    image: "assets/song_12_poster.jpg",
-    songFile: "assets/Lut_Gaye.mp3",
+    image: "assets/songs_posters/song_12_poster.jpg",
+    songFile: "assets/songs_mp3_files/Lut_Gaye.mp3",
   },
   {
     name: "Khairiyat",
     artist: "Arijit Singh",
-    duration: "4:30",
-    image: "assets/song_13_poster.jpg",
-    songFile: "assets/KHAIRIYAT.mp3",
+    image: "assets/songs_posters/song_13_poster.jpg",
+    songFile: "assets/songs_mp3_files/KHAIRIYAT.mp3",
   },
   {
     name: 'Kesariya (From "Brahmastra")',
     artist: "Arijit Singh",
-    duration: "3:10",
-    image: "assets/song_7_poster.jpg",
-    songFile: "assets/Kesariya.mp3",
+    image: "assets/songs_posters/song_7_poster.jpg",
+    songFile: "assets/songs_mp3_files/Kesariya.mp3",
   },
   {
     name: 'Tum Hi Aana (From "Marjaavaan")',
     artist: "Payal Dev & Jubin Nautiyal",
-    duration: "4:20",
-    image: "assets/song_8_poster.jpg",
-    songFile: "assets/Tum_Hi_Aana.mp3",
+    image: "assets/songs_posters/song_8_poster.jpg",
+    songFile: "assets/songs_mp3_files/Tum_Hi_Aana.mp3",
   },
   {
     name: "Srivalli",
     artist: "Javed Ali",
-    duration: "3:55",
-    image: "assets/song_9_poster.jpg",
-    songFile: "assets/Pushpa_ Srivalli.mp3",
+    image: "assets/songs_posters/song_9_poster.jpg",
+    songFile: "assets/songs_mp3_files/Pushpa_ Srivalli.mp3",
   },
   {
     name: "Meri Jaan",
     artist: "Neeti Mohan & Sanjay Leela Bhansali",
-    duration: "4:10",
-    image: "assets/song_10_poster.jpg",
-    songFile: "assets/Meri_Jaan.mp3",
+    image: "assets/songs_posters/song_10_poster.jpg",
+    songFile: "assets/songs_mp3_files/Meri_Jaan.mp3",
   },
   {
     name: "Maiyya Mainu",
     artist: "Sachet Tandon",
-    duration: "5:15",
-    image: "assets/song_4_poster.jpg",
-    songFile: "assets/Maiyya_Mainu.mp3",
+    image: "assets/songs_posters/song_4_poster.jpg",
+    songFile: "assets/songs_mp3_files/Maiyya_Mainu.mp3",
   },
 ];
 
@@ -163,6 +152,7 @@ songList.addEventListener("click", function (e) {
   const songId = listItem.dataset.songId;
   var index = parseInt(songId);
   const song = `${songs[index].songFile}`;
+  console.log(song);
 
   maxiSongControl.classList.remove("hidden");
   setTimeout(() => {
@@ -173,21 +163,24 @@ songList.addEventListener("click", function (e) {
   function playSongfromList() {
     //maximized controls screen
     maxiSongControl.innerHTML = `
-      <div class="md:w-screen md:h-screen md:flex md:justify-center md:flex-col md:items-center">
-      <div class=" w-full text-center absolute top-5 animate-bounce">
+      <div class="w-full h-full flex flex-col justify-center items-center pb-4">
+      <div class=" w-full text-center absolute top-3 animate-bounce">
       <i class="text-gray-400 text-2xl md:text-5xl mx-auto fa-solid fa-chevron-down cursor-pointer" onclick="hideMaxControl()"></i>
       </div>
       
-      <div class="current-song-thumnail w-full mx-auto mt-14 flex justify-center" data-song-id="${songId}"> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
+      <div class="current-song-thumnail w-full mt-14 flex justify-center" data-song-id="${songId}"> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
 
-      <div class="current-song-description  w-[80%] md:w-[300px] mt-3 pl-2 flex flex-col justify-centre mx-auto">
-      <p class="text-xl text-white font-semibold">${songs[index].name}</p>
+      <div class="current-song-description  w-[80%] md:w-[300px] mt-3 pl-2 flex flex-col justify-centre">
+      <p class="text-xl text-white font-extrabold">${songs[index].name}</p>
       <p class="h-[20px] w-[200px] text-sm text-gray-400 truncate ...">${songs[index].artist}</p>
       </div>
 
-      <div class="w-full flex justify-center mt-5 mb-5"><input type="range" value="0" class="appearance-none w-[75%] h-[0.1rem] bg-gray-500 rounded-md md:w-[300px] md:mx-auto" id="progress"></div>
+      <div class="w-full flex flex-col justify-centre items-center mt-5 mb-2">
+      <div class="w-[75%] flex justify-center mb-2"><input type="range" value="0" class="w-full appearance-none h-[0.1rem] bg-gray-500 rounded-md md:w-[300px] md:mx-auto" id="progress"></div>
+      <div class="w-[75%] md:w-[300px] flex justify-between px-1"><span class="text-slate-200 text-sm" id="currentTime"></span> <span class="text-slate-200 text-sm" id="totalTime"></span></div>
+      </div>
 
-      <div class="controls w-full text-center mt-3 flex items-center justify-center gap-7">
+      <div class="controls w-full text-center flex items-center justify-center gap-7">
       <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem] cursor-pointer" onclick="previousSong()"></i></div>
       <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer "><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
       <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem] cursor-pointer" onclick="nextSong()"></i></div>
@@ -201,14 +194,14 @@ songList.addEventListener("click", function (e) {
 
     minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
           <img class="w-[60px] h-[60px] rounded-sm ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
-          <div class="flex flex-col my-auto cursor-pointer" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-10 font-semibold">${songs[index].name}</p>
+          <div class="flex flex-col my-auto cursor-pointer" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-[3rem] font-semibold">${songs[index].name}</p>
           <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
           <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white cursor-pointer" onclick="togglePlayPause()"></i>
       </div>`;
 
     //progress bar logic
     const progress = document.querySelector("#progress");
-    isPlaying = true
+    isPlaying = true;
     if (isPlaying) {
       setInterval(() => {
         const songLength = audioPlayer.duration;
@@ -217,6 +210,22 @@ songList.addEventListener("click", function (e) {
         progress.value = Currentprogress;
       }, 500);
     }
+
+    //song current time and total time update logic
+    audioPlayer.addEventListener("timeupdate", function () {
+      const currentTime = Math.floor(audioPlayer.currentTime);
+      const totalTime = Math.floor(audioPlayer.duration);
+
+      // Convert seconds to minutes:seconds format
+      const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      };
+      document.getElementById("currentTime").textContent =
+        formatTime(currentTime);
+      document.getElementById("totalTime").textContent = formatTime(totalTime);
+    });
 
     //adding the backgroud to currently playing song in playlist
     let listItems = songList.querySelectorAll("#song-list li");
@@ -232,20 +241,23 @@ songList.addEventListener("click", function (e) {
 
   //playing next song from controls
   window.nextSong = function () {
-    index += 1;
-    console.log(`index is ${index}`);
-    const song = `${songs[index].songFile}`;
-
-    playSongfromList();
-    playSong(song);
+    if (index < 11) {
+      index += 1;
+      console.log(`index is ${index}`);
+      const song = `${songs[index].songFile}`;
+      playSongfromList();
+      playSong(song);
+    }
   };
 
   //playing previous song from controls
   window.previousSong = function () {
-    index -= 1;
-    console.log(`index is ${index}`);
-    const song = `${songs[index].songFile}`;
-    playSongfromList();
-    playSong(song);
+    if (index > 1) {
+      index -= 1;
+      console.log(`index is ${index}`);
+      const song = `${songs[index].songFile}`;
+      playSongfromList();
+      playSong(song);
+    }
   };
 });
