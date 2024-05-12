@@ -5,16 +5,16 @@ const songs = [
     image: "assets/songs_posters/song_1_poster.jpg",
   },
   {
+    name: 'Apna Bana Le (From "Bhediya")',
+    artist: "Arijit Singh & Sachin-Jigar",
+    image: "assets/songs_posters/song_11_poster.jpg",
+    songFile: "assets/songs_mp3_files/Apna_Bana_Le_Bhediya.mp3",
+  },
+  {
     name: 'Raataan Lambiyan (From "Shershaah")',
     artist: "Jubin Nautiyal, Tanishk Bagchi and Asees Kaur",
     image: "assets/songs_posters/song_1_poster.jpg",
     songFile: "assets/songs_mp3_files/Raataan_Lambiyan.mp3",
-  },
-  {
-    name: "Maan Meri Jaan",
-    artist: "King",
-    image: "assets/songs_posters/song_2_poster.jpg",
-    songFile: "assets/songs_mp3_files/Maan_Meri_Jaan.mp3",
   },
   {
     name: "Pehle Bhi Main",
@@ -29,12 +29,6 @@ const songs = [
     songFile: "assets/songs_mp3_files/Manike.mp3",
   },
   {
-    name: 'Apna Bana Le (From "Bhediya")',
-    artist: "Arijit Singh & Sachin-Jigar",
-    image: "assets/songs_posters/song_11_poster.jpg",
-    songFile: "assets/songs_mp3_files/Apna_Bana_Le_Bhediya.mp3",
-  },
-  {
     name: "Lut Gaye",
     artist: "Jubin Nautiyal",
     image: "assets/songs_posters/song_12_poster.jpg",
@@ -45,6 +39,12 @@ const songs = [
     artist: "Arijit Singh",
     image: "assets/songs_posters/song_13_poster.jpg",
     songFile: "assets/songs_mp3_files/KHAIRIYAT.mp3",
+  },
+  {
+    name: "Maan Meri Jaan",
+    artist: "King",
+    image: "assets/songs_posters/song_2_poster.jpg",
+    songFile: "assets/songs_mp3_files/Maan_Meri_Jaan.mp3",
   },
   {
     name: 'Kesariya (From "Brahmastra")',
@@ -91,23 +91,29 @@ const currentSongCuntrollDisc = document.querySelector(
 );
 
 //inserting playlist thumbnail and discription
-posterContainer.innerHTML = `<img class="w-[250px] h-auto rounded-xl" src="${songs[0].image}" alt="image1">`;
+posterContainer.innerHTML = `<img class="w-[250px] h-auto rounded-xl" src="assets/songs_posters/thumbnail.jpg" alt="image1">`;
 discription.innerHTML = `<h1 class="text-white  text-xl font-extrabold pt-4">${songs[0].name}</h1>
-<p class="text-slate-400 pt-3">Playlist • YouTube Music • 2024</p>
+<p class="text-slate-400 pt-3">Playlist • MeloTunes Music • 2024</p>
 <p class="text-slate-400">12 songs • 1 hours, 1 minute</p>
 <p class="text-slate-400 pt-3 px-5">Biggest hits to crowd favorites, enjoy the best of Bollywood Romance.</p> `;
 
 //inserting songs
-let playlistLength = songs.length-1
-console.log(playlistLength)
+let playlistLength = songs.length - 1;
+console.log(playlistLength);
 let songNum = 1;
 for (let i = 0; i < playlistLength; i++) {
-  songsContainer.innerHTML += `<li class=" cursor-pointer scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] h-[60px] rounded-sm" src="${songs[songNum].image}">
+  songsContainer.innerHTML += `<li class=" cursor-pointer scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] h-[60px] rounded-md" src="${songs[songNum].image}">
   <div class="flex flex-col my-auto"><p class="text-white pl-5 font-semibold text-sm">${songs[songNum].name}</p>
   <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[songNum].artist}</p></div></li>
 `;
   songNum++;
 }
+
+//initail state of minimized music player
+minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
+<img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="assets/songs_posters/initial_icon.avif">
+<div class="flex flex-col my-auto cursor-pointer"><p class="text-white my-auto pl-5 pr-[3rem] font-semibold">No recently played music !</p>
+</div>`;
 
 //play and pause feature
 let isPlaying = false;
@@ -173,7 +179,7 @@ songList.addEventListener("click", function (e) {
     maxiSongControl.innerHTML = `
       <div class="w-full h-full flex flex-col justify-center items-center pb-4">
       <div class=" w-full text-center absolute top-3 animate-bounce">
-      <i class="text-gray-400 text-2xl md:text-5xl mx-auto fa-solid fa-chevron-down cursor-pointer" onclick="hideMaxControl()"></i>
+      <i class="text-gray-300 text-2xl md:text-5xl mx-auto fa-solid fa-chevron-down cursor-pointer" onclick="hideMaxControl()"></i>
       </div>
       
       <div class="current-song-thumnail w-full mt-14 flex justify-center" data-song-id="${songId}"> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
@@ -190,7 +196,7 @@ songList.addEventListener("click", function (e) {
 
       <div class="controls w-full text-center flex items-center justify-center gap-7">
       <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem] cursor-pointer" onclick="previousSong()"></i></div>
-      <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer "><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
+      <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer"><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
       <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem] cursor-pointer" onclick="nextSong()"></i></div>
       </div>
 
@@ -198,10 +204,8 @@ songList.addEventListener("click", function (e) {
       `;
 
     //minimized controll card
-    minimizedControlls.classList.remove("hidden");
-
     minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
-          <img class="w-[60px] h-[60px] rounded-sm ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
+          <img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
           <div class="flex flex-col my-auto cursor-pointer" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-[3rem] font-semibold">${songs[index].name}</p>
           <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
           <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white cursor-pointer" onclick="togglePlayPause()"></i>
@@ -218,6 +222,12 @@ songList.addEventListener("click", function (e) {
         progress.value = Currentprogress;
       }, 500);
     }
+
+    //seek song forword and backword logic
+    progress.addEventListener("input", function () {
+      const currentTime = audioPlayer.duration * (progress.value / 100);
+      audioPlayer.currentTime = currentTime;
+    });
 
     //song current time and total time update logic
     audioPlayer.addEventListener("timeupdate", function () {
