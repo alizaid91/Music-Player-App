@@ -149,6 +149,11 @@ window.hideMaxControl = function () {
   setTimeout(() => {
     maxiSongControl.classList.add("hidden");
   }, 500);
+
+    minimizedControlls.classList.remove("hidden");
+    setTimeout(() => {
+      minimizedControlls.classList.remove("translate-y-[100%]");
+  }, 500);
   document.body.style.overflow = "scroll";
 };
 
@@ -157,6 +162,12 @@ window.showMaxControlls = function () {
   setTimeout(() => {
     maxiSongControl.classList.remove("translate-y-[100%]");
   }, 100);
+
+  minimizedControlls.classList.add("translate-y-[100%]");
+  setTimeout(() => {
+  minimizedControlls.classList.add("hidden");
+    }, 100);
+ 
   document.body.style.overflow = "hidden";
 };
 
@@ -203,6 +214,7 @@ songList.addEventListener("click", function (e) {
       </div>
       `;
 
+    minimizedControlls.classList.add("translate-y-[100%]");
     //minimized controll card
     minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
           <img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
