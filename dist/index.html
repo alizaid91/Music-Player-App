@@ -60,6 +60,15 @@
     .minimized-song-controls{
         background: linear-gradient(-109.6deg, rgb(22, 11, 11)  20.4%,rgb(99, 23, 36)  98.8%);
     }
+
+    @keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
 
 <body class="font-['Roboto'] w-screen h-screen md:overflow-x-hidden">
@@ -75,7 +84,7 @@
             <h1 class="text-black text-xl font-extrabold bg-white rounded-md p-[5px]"><i>Developed By Ali Zaid</i></h1>
         </div>
     </div>
-    <div class="minimized-song-controls w-full h-auto fixed bottom-0 left-0 p-2 rounded-t-xl"></div>
+    <div class="minimized-song-controls w-full h-auto fixed bottom-0 left-0 p-2 rounded-t-xl transition ease-in-outout duration-500"></div>
     <div
         class="maxzimised-song-controls w-full h-full fixed top-0 left-0 z-999 translate-y-[100%] hidden transition ease-in-outout duration-500 justify-center">
     </div>
