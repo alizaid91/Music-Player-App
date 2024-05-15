@@ -23,10 +23,10 @@ const songs = [
     songFile: "assets/songs_mp3_files/ANIMAL_PEHLE_BHI_MAIN.mp3",
   },
   {
-    name: "Manike",
-    artist: "Yohani,Jubin Nautiyal & Surya Ragunaathan",
-    image: "assets/songs_posters/song_3_poster.jpg",
-    songFile: "assets/songs_mp3_files/Manike.mp3",
+    name: "Pasoori",
+    artist: "Shae Gill & Ali Sethi",
+    image: "assets/songs_posters/song_15_poster.jpg",
+    songFile: "assets/songs_mp3_files/Pasoori.mp3",
   },
   {
     name: "Lut Gaye",
