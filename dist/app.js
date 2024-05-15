@@ -93,25 +93,23 @@ const currentSongCuntrollDisc = document.querySelector(
 //inserting playlist thumbnail and discription
 posterContainer.innerHTML = `<img class="w-[250px] h-auto rounded-xl" src="assets/songs_posters/thumbnail.jpg" alt="image1">`;
 discription.innerHTML = `<h1 class="text-white  text-xl font-extrabold pt-4">${songs[0].name}</h1>
-<p class="text-slate-400 pt-3">Playlist • MeloTunes Music • 2024</p>
-<p class="text-slate-400">12 songs • 1 hours, 1 minute</p>
-<p class="text-slate-400 pt-3 px-5">Biggest hits to crowd favorites, enjoy the best of Bollywood Romance.</p> `;
+<p class="text-slate-300 pt-3">Playlist • MeloTunes Music • 2024</p>
+<p class="text-slate-300">12 songs • 1 hours, 1 minute</p>
+<p class="text-slate-300 pt-3 px-5">Biggest hits to crowd favorites, enjoy the best of Bollywood Romance.</p> `;
 
 //inserting songs
 let playlistLength = songs.length - 1;
-console.log(playlistLength);
 let songNum = 1;
 for (let i = 0; i < playlistLength; i++) {
   songsContainer.innerHTML += `<li class=" cursor-pointer scroll-smooth h-full relative flex flex-row song-card"  data-song-id="${songNum}"><img class="w-[60px] h-[60px] rounded-md" src="${songs[songNum].image}">
   <div class="flex flex-col my-auto"><p class="text-white pl-5 font-semibold text-sm">${songs[songNum].name}</p>
-  <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[songNum].artist}</p></div></li>
-`;
+  <p class="h-[20px] w-[200px] text-sm text-gray-300 pl-5 pr-7 truncate ...">${songs[songNum].artist}</p></div></li>`;
   songNum++;
 }
 
 //initail state of minimized music player
 minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
-<img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="assets/songs_posters/initial_icon.avif">
+<img class="w-[50px] h-[50px] rounded-md ml-3 cursor-pointer" src="assets/songs_posters/initial_icon.avif">
 <div class="flex flex-col my-auto cursor-pointer"><p class="text-white my-auto pl-5 pr-[3rem] font-semibold">No recently played music !</p>
 </div>`;
 
@@ -150,9 +148,9 @@ window.hideMaxControl = function () {
     maxiSongControl.classList.add("hidden");
   }, 500);
 
-    minimizedControlls.classList.remove("hidden");
-    setTimeout(() => {
-      minimizedControlls.classList.remove("translate-y-[100%]");
+  minimizedControlls.classList.remove("hidden");
+  setTimeout(() => {
+    minimizedControlls.classList.remove("translate-y-[100%]");
   }, 500);
   document.body.style.overflow = "scroll";
 };
@@ -165,9 +163,9 @@ window.showMaxControlls = function () {
 
   minimizedControlls.classList.add("translate-y-[100%]");
   setTimeout(() => {
-  minimizedControlls.classList.add("hidden");
-    }, 100);
- 
+    minimizedControlls.classList.add("hidden");
+  }, 100);
+
   document.body.style.overflow = "hidden";
 };
 
@@ -175,9 +173,35 @@ window.showMaxControlls = function () {
 songList.addEventListener("click", function (e) {
   const listItem = e.target.closest("li");
   const songId = listItem.dataset.songId;
-  var index = parseInt(songId);
+  let index = parseInt(songId);
   const song = `${songs[index].songFile}`;
-  console.log(song);
+
+  //playing first song from playlist
+  minimizedControlls.classList.add("translate-y-[100%]");
+  playSongfromList();
+  playSong(song);
+
+  //playing next song from controls
+  window.nextSong = function () {
+    if (index < playlistLength) {
+      index += 1;
+      const song = `${songs[index].songFile}`;
+      playSongfromList();
+      playSong(song);
+    }
+  };
+
+  //playing previous song from controls
+  window.previousSong = function () {
+    if (index > 1) {
+      index -= 1;
+      const song = `${songs[index].songFile}`;
+      playSongfromList();
+      playSong(song);
+    }
+  };
+
+  audioPlayer.addEventListener("ended", nextSong);
 
   maxiSongControl.classList.remove("hidden");
   setTimeout(() => {
@@ -190,38 +214,45 @@ songList.addEventListener("click", function (e) {
     maxiSongControl.innerHTML = `
       <div class="w-full h-full flex flex-col justify-center items-center pb-4">
       <div class=" w-full text-center absolute top-3 animate-bounce">
-      <i class="text-gray-300 text-2xl md:text-5xl mx-auto fa-solid fa-chevron-down cursor-pointer" onclick="hideMaxControl()"></i>
+      <i class="text-white text-2xl md:text-5xl mx-auto fa-solid fa-chevron-down cursor-pointer" onclick="hideMaxControl()"></i>
       </div>
       
       <div class="current-song-thumnail w-full mt-14 flex justify-center" data-song-id="${songId}"> <img class="rounded-xl w-[80%] md:max-w-[300px]" src="${songs[index].image}"></div>
 
       <div class="current-song-description  w-[80%] md:w-[300px] mt-3 pl-2 flex flex-col justify-centre">
       <p class="text-xl text-white font-extrabold">${songs[index].name}</p>
-      <p class="h-[20px] w-[200px] text-sm text-gray-400 truncate ...">${songs[index].artist}</p>
+      <p class="h-[20px] w-[200px] text-sm text-gray-300 truncate ...">${songs[index].artist}</p>
       </div>
 
       <div class="w-full flex flex-col justify-centre items-center mt-5 mb-2">
       <div class="w-[75%] flex justify-center mb-2"><input type="range" value="0" class="w-full appearance-none h-[0.1rem] bg-gray-500 rounded-md md:w-[300px] md:mx-auto" id="progress"></div>
-      <div class="w-[75%] md:w-[300px] flex justify-between px-1"><span class="text-slate-200 text-sm" id="currentTime"></span> <span class="text-slate-200 text-sm" id="totalTime"></span></div>
+      <div class="w-[75%] md:w-[300px] flex justify-between px-1"><span class="text-white text-sm" id="currentTime"></span> <span class="text-white text-sm" id="totalTime"></span></div>
       </div>
 
-      <div class="controls w-full text-center flex items-center justify-center gap-7">
-      <div><i class="fa-solid fa-backward-step  text-white text-[1.8rem] cursor-pointer" onclick="previousSong()"></i></div>
+      <div class="controls w-full mx-w-[300px] text-center flex items-center justify-center gap-7 relative">
+      <div><i class="fa-solid fa-backward-step  text-white text-2xl cursor-pointer" onclick="previousSong()"></i></div>
       <div class="w-20 h-20 bg-white inline-flex items-center justify-center rounded-full cursor-pointer"><i class="pauseIcon2 fa-solid fa-pause text-black text-3xl" onclick="togglePlayPause()"></i></div>
-      <div><i class="fa-solid fa-forward-step  text-white text-[1.8rem] cursor-pointer" onclick="nextSong()"></i></div>
+      <div><i class="fa-solid fa-forward-step  text-white text-2xl cursor-pointer" onclick="nextSong()"></i></div>
       </div>
-
       </div>
       `;
-
-    minimizedControlls.classList.add("translate-y-[100%]");
     //minimized controll card
-    minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
-          <img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
-          <div class="flex flex-col my-auto cursor-pointer" onclick="showMaxControlls()"><p class="text-white my-auto pl-5 pr-[3rem] font-semibold">${songs[index].name}</p>
-          <p class="h-[20px] w-[200px] text-sm text-gray-400 pl-5 pr-7 truncate ...">${songs[index].artist}</p></div>
-          <i class=" pauseIcon fa-solid fa-pause absolute right-5 top-1/2 transform -translate-y-1/2 text-3xl text-white cursor-pointer" onclick="togglePlayPause()"></i>
-      </div>`;
+    minimizedControlls.innerHTML = `    
+<div class="w-[20%]">
+<img class="min-image w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
+</div>
+<div class="w-[60%]">
+<div class="flex flex-col cursor-pointer pl-5 rounded-sm" onclick="showMaxControlls()">
+        <p class="text-white w-auto font-semibold text-[1rem] scrolling-text">
+            <span class="scrolling-text-inner">${songs[index].name}</span>
+        </p>
+        <p class="text-sm text-gray-300 truncate ...">${songs[index].artist}</p>
+    </div>
+</div>
+<div class="w-[20%] flex justify-center">
+<i class="pauseIcon fa-solid fa-pause text-3xl text-white cursor-pointer" onclick="togglePlayPause()"></i>
+</div>
+`;
 
     //progress bar logic
     const progress = document.querySelector("#progress");
@@ -261,33 +292,6 @@ songList.addEventListener("click", function (e) {
     let listItems = songList.querySelectorAll("#song-list li");
     listItems.forEach((item) => item.classList.remove("song-playing"));
     let element = document.querySelectorAll("#song-list li")[index - 1];
-    console.log(element);
     element.classList.add("song-playing");
   }
-
-  //playing first song from playlist
-  playSongfromList();
-  playSong(song);
-
-  //playing next song from controls
-  window.nextSong = function () {
-    if (index < playlistLength) {
-      index += 1;
-      console.log(`index is ${index}`);
-      const song = `${songs[index].songFile}`;
-      playSongfromList();
-      playSong(song);
-    }
-  };
-
-  //playing previous song from controls
-  window.previousSong = function () {
-    if (index > 1) {
-      index -= 1;
-      console.log(`index is ${index}`);
-      const song = `${songs[index].songFile}`;
-      playSongfromList();
-      playSong(song);
-    }
-  };
 });
