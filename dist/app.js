@@ -109,8 +109,8 @@ for (let i = 0; i < playlistLength; i++) {
 
 //initail state of minimized music player
 minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
-<img class="w-[50px] h-[50px] rounded-md ml-3 cursor-pointer" src="assets/songs_posters/initial_icon.avif">
-<div class="flex flex-col my-auto cursor-pointer"><p class="text-white my-auto pl-5 pr-[3rem] font-semibold">No recently played music !</p>
+<img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="assets/songs_posters/initial_icon.avif">
+<div class="flex flex-col my-auto cursor-pointer"><p class="text-white my-auto pl-5 font-semibold">No recently played music !</p>
 </div>`;
 
 //play and pause feature
@@ -150,7 +150,7 @@ window.hideMaxControl = function () {
 
   minimizedControlls.classList.remove("hidden");
   setTimeout(() => {
-    minimizedControlls.classList.remove("translate-y-[100%]");
+    minimizedControlls.classList.remove("translate-y-[120%]");
   }, 500);
   document.body.style.overflow = "scroll";
 };
@@ -161,7 +161,7 @@ window.showMaxControlls = function () {
     maxiSongControl.classList.remove("translate-y-[100%]");
   }, 100);
 
-  minimizedControlls.classList.add("translate-y-[100%]");
+  minimizedControlls.classList.add("translate-y-[120%]");
   setTimeout(() => {
     minimizedControlls.classList.add("hidden");
   }, 100);
@@ -177,7 +177,7 @@ songList.addEventListener("click", function (e) {
   const song = `${songs[index].songFile}`;
 
   //playing first song from playlist
-  minimizedControlls.classList.add("translate-y-[100%]");
+  minimizedControlls.classList.add("translate-y-[120%]");
   playSongfromList();
   playSong(song);
 
@@ -239,10 +239,10 @@ songList.addEventListener("click", function (e) {
     //minimized controll card
     minimizedControlls.innerHTML = `    
 <div class="w-[20%]">
-<img class="min-image w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
+<img class="min-image w-[60px] h-[60px] rounded-md cursor-pointer" src="${songs[index].image}" onclick="showMaxControlls()">
 </div>
 <div class="w-[60%]">
-<div class="flex flex-col cursor-pointer pl-5 rounded-sm" onclick="showMaxControlls()">
+<div class="flex flex-col cursor-pointer pl-3 rounded-sm" onclick="showMaxControlls()">
         <p class="text-white w-auto font-semibold text-[1rem] scrolling-text">
             <span class="scrolling-text-inner">${songs[index].name}</span>
         </p>
