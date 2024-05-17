@@ -109,8 +109,8 @@ for (let i = 0; i < playlistLength; i++) {
 
 //initail state of minimized music player
 minimizedControlls.innerHTML = `<div class="scroll-smooth h-full relative flex flex-row song-card items-center">
-<img class="w-[60px] h-[60px] rounded-md ml-3 cursor-pointer" src="assets/songs_posters/initial_icon.avif">
-<div class="flex flex-col my-auto cursor-pointer"><p class="text-white my-auto pl-5 font-semibold">No recently played music !</p>
+<img class="w-[60px] h-[60px] rounded-md cursor-pointer" src="assets/songs_posters/initial_icon.avif">
+<div class="flex flex-col my-auto cursor-pointer"><p class="text-white my-auto pl-3 font-semibold">No recently played music !</p>
 </div>`;
 
 //play and pause feature
